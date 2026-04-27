@@ -2,6 +2,7 @@ package com.example.controleestoquespring.Controller;
 
 import com.example.controleestoquespring.Model.Produto;
 import com.example.controleestoquespring.Service.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public Produto criarProduto(@RequestBody Produto produto) {
+    public Produto criarProduto(@RequestBody @Valid Produto produto) {
         return produtoService.criarProduto(produto);
     }
 
@@ -37,7 +38,7 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public Produto atualizarPorId(@PathVariable int id, @RequestBody Produto novoProduto) {
+    public Produto atualizarPorId(@PathVariable int id, @RequestBody @Valid Produto novoProduto) {
         return produtoService.atualizarPorId(id, novoProduto);
     }
 }

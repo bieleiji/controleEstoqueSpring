@@ -1,7 +1,10 @@
 package com.example.controleestoquespring.Model;
 
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+
 
 @Entity
 @Table(name = "produtos")
@@ -11,9 +14,13 @@ public class Produto {
     @Column(name = "id_produto")
     private int id;
 
+    @NotBlank
     private String nome;
+
+    @Positive
     private double preco;
 
+    @PositiveOrZero
     @Column(name = "estoque")
     private int quantidade;
 
