@@ -17,4 +17,10 @@ public class GlobalExceptionHandler {
         ErroResponse erro = new ErroResponse(mensagem, 400);
         return ResponseEntity.badRequest().body(erro);
     }
+
+    @ExceptionHandler(ProdutoException.class)
+    public ResponseEntity<ErroResponse> handleProduto(String mensagem) {
+        ErroResponse erroResponse = new ErroResponse(mensagem, 400);
+        return ResponseEntity.badRequest().body(erroResponse);
+    }
 }

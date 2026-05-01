@@ -27,13 +27,13 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public List<Produto> mostrarProdutos() {
-        return produtoService.mostrarProdutos();
+    public ResponseEntity<List<ProdutoResponse>> mostrarProdutos() {
+        return ResponseEntity.ok(produtoService.mostrarProdutos());
     }
 
     @GetMapping("/{id}")
-    public Produto buscaPorId(@PathVariable int id) {
-        return produtoService.buscaPorId(id);
+    public ResponseEntity<ProdutoResponse> buscaPorId(@PathVariable int id) {
+        return ResponseEntity.ok(produtoService.buscaPorId(id));
     }
 
     @DeleteMapping("/{id}")

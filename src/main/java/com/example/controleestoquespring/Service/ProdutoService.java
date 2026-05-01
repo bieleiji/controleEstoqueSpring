@@ -36,12 +36,28 @@ public class ProdutoService {
         );
     }
 
-    public List<Produto> mostrarProdutos() {
-        return produtoRepository.findAll();
+    public List<ProdutoResponse> mostrarProdutos() {
+        return produtoRepository.findAll()
+                .stream()
+                .map(produto -> new ProdutoResponse(
+                        produto.getId(),
+                        produto.getNome(),
+                        produto.getPreco(),
+                        produto.getQuantidade()
+                ))
+                .toList();
     }
 
-    public Produto buscaPorId(int id) {
-        return produtoRepository.findById(id).orElse(null);
+    public ProdutoResponse buscaPorId(int id) {
+        Produto produto = produtoRepository.findById(id).
+                orElseThrow(() -> new ProdutoException("produto não encontrado"));
+
+        return new ProdutoResponse(
+                produto.getId(),
+                produto.getNome(),
+                produto.getPreco(),
+                produto.getQuantidade()
+        );
     }
 
     public void removerPorId(int id) {
@@ -50,7 +66,7 @@ public class ProdutoService {
 
     public ProdutoResponse atualizarPorId(int id, ProdutoUpdateRequest produtoUpdateRequest) {
         Produto produto = produtoRepository.findById(id).
-                orElseThrow(() -> new ProdutoException("usuário inexistente"));
+                orElseThrow(() -> new ProdutoException("produto não encontrado"));
 
         if(produtoUpdateRequest.getNome() != null) {
             if (produtoUpdateRequest.getNome().isBlank())
