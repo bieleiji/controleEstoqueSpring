@@ -1,8 +1,12 @@
 package com.example.controleestoquespring.Controller;
 
+import com.example.controleestoquespring.Dto.ProdutoRequest;
+import com.example.controleestoquespring.Dto.ProdutoResponse;
+import com.example.controleestoquespring.Dto.ProdutoUpdateRequest;
 import com.example.controleestoquespring.Model.Produto;
 import com.example.controleestoquespring.Service.ProdutoService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +22,8 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public Produto criarProduto(@RequestBody @Valid Produto produto) {
-        return produtoService.criarProduto(produto);
+    public ResponseEntity<ProdutoResponse> criarProduto(@RequestBody @Valid ProdutoRequest produtoRequest) {
+        return ResponseEntity.ok(produtoService.criarProduto(produtoRequest));
     }
 
     @GetMapping
@@ -37,8 +41,10 @@ public class ProdutoController {
         produtoService.removerPorId(id);
     }
 
-    @PutMapping("/{id}")
-    public Produto atualizarPorId(@PathVariable int id, @RequestBody @Valid Produto novoProduto) {
-        return produtoService.atualizarPorId(id, novoProduto);
+    @PatchMapping("/{id}")
+    public ResponseEntity<ProdutoResponse> atualizarPorId(
+            @PathVariable int id,
+            @RequestBody ProdutoUpdateRequest produtoUpdateRequest) {
+        return ResponseEntity.ok(produtoService.atualizarPorId(id,produtoUpdateRequest));
     }
 }

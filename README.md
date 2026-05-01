@@ -1,6 +1,6 @@
 # Sistema de Controle de Estoque (Spring Boot)
 
-Este projeto é uma evolução do sistema de controle de estoque anterior, agora utilizando Spring Boot para construção de
+Este projeto é uma evolução do sistema de controle de quantidade anterior, agora utilizando Spring Boot para construção de
 uma API REST e integração com banco de dados de forma automatizada.
 
 ## Funcionalidades
@@ -11,7 +11,7 @@ uma API REST e integração com banco de dados de forma automatizada.
     * deletar produtos
 
 ## Regras de negócio
-1. Não permite estoque negativo
+1. Não permite quantidade negativo
 2. Valida existência do produto antes de operações
 3. Controle de entrada e saída de produtos
 

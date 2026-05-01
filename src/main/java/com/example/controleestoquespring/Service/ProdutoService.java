@@ -1,5 +1,8 @@
 package com.example.controleestoquespring.Service;
 
+import com.example.controleestoquespring.Dto.ProdutoRequest;
+import com.example.controleestoquespring.Dto.ProdutoResponse;
+import com.example.controleestoquespring.Dto.ProdutoUpdateRequest;
 import com.example.controleestoquespring.Exception.ProdutoException;
 import com.example.controleestoquespring.Model.Produto;
 import com.example.controleestoquespring.Repository.ProdutoRepository;
@@ -16,17 +19,21 @@ public class ProdutoService {
         this.produtoRepository = produtoRepository;
     }
 
-    public Produto criarProduto(Produto produto) {
-        if(produto.getNome().isBlank())
-            throw new ProdutoException("nome vazio é inválido");
+    public ProdutoResponse criarProduto(ProdutoRequest produtoRequest) {
+        Produto produto = new Produto();
 
-        else if(produto.getPreco() <= 0)
-            throw new ProdutoException("preço menor ou igual a 0 é inválido");
+        produto.setNome(produtoRequest.getNome());
+        produto.setPreco(produtoRequest.getPreco());
+        produto.setQuantidade(produtoRequest.getQuantidade());
 
-        else if(produto.getQuantidade() < 0)
-          throw new ProdutoException("quantidade menor que 0 é inválido");
+        Produto salvo = produtoRepository.save(produto);
 
-        return produtoRepository.save(produto);
+        return new ProdutoResponse(
+                salvo.getId(),
+                salvo.getNome(),
+                salvo.getPreco(),
+                salvo.getQuantidade()
+        );
     }
 
     public List<Produto> mostrarProdutos() {
@@ -41,24 +48,35 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
-    public Produto atualizarPorId(int id, Produto novoProduto) {
-        Produto produto = buscaPorId(id);
+    public ProdutoResponse atualizarPorId(int id, ProdutoUpdateRequest produtoUpdateRequest) {
+        Produto produto = produtoRepository.findById(id).
+                orElseThrow(() -> new ProdutoException("usuário inexistente"));
 
-        if (produto == null)
-            throw new ProdutoException("usuário inexistente");
+        if(produtoUpdateRequest.getNome() != null) {
+            if (produtoUpdateRequest.getNome().isBlank())
+                throw new ProdutoException("nome vazio é inválido");
+            else produto.setNome(produtoUpdateRequest.getNome());
+        }
 
-        if(produto.getNome().isBlank())
-            throw new ProdutoException("nome vazio é inválido");
-        else produto.setNome(novoProduto.getNome());
+        if(produtoUpdateRequest.getPreco() != null) {
+            if (produtoUpdateRequest.getPreco() <= 0)
+                throw new ProdutoException("preço menor ou igual a 0 é inválido");
+            else produto.setPreco(produtoUpdateRequest.getPreco());
+        }
 
-        if(produto.getPreco() <= 0)
-            throw new ProdutoException("preço menor ou igual a 0 é inválido");
-        else produto.setPreco(novoProduto.getPreco());
+        if(produtoUpdateRequest.getQuantidade() != null) {
+            if (produtoUpdateRequest.getQuantidade() < 0)
+                throw new ProdutoException("quantidade menor que 0 é inválido");
+            else produto.setQuantidade(produtoUpdateRequest.getQuantidade());
+        }
 
-        if(produto.getQuantidade() < 0)
-            throw new ProdutoException("quantidade menor que 0 é inválido");
-        else produto.setQuantidade(novoProduto.getQuantidade());
+        Produto atualizado = produtoRepository.save(produto);
 
-        return produtoRepository.save(produto);
+        return new ProdutoResponse(
+                atualizado.getId(),
+                atualizado.getNome(),
+                atualizado.getPreco(),
+                atualizado.getQuantidade()
+        );
     }
 }
