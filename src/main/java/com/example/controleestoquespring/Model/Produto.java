@@ -14,13 +14,13 @@ public class Produto {
     @Column(name = "id_produto")
     private int id;
 
-    @NotBlank(message = "'nome' não pode ser vazio")
+    @NotBlank
     private String nome;
 
-    @Positive(message = "'preço' não pode ser menor ou igual a 0")
+    @Positive
     private double preco;
 
-    @PositiveOrZero(message = "'quantidade' não pode ser menor que 0")
+    @PositiveOrZero
     @Column(name = "estoque")
     private int quantidade;
 
