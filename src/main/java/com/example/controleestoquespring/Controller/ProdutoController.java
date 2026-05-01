@@ -37,8 +37,9 @@ public class ProdutoController {
     }
 
     @DeleteMapping("/{id}")
-    public void removerPorId(@PathVariable int id) {
+    public ResponseEntity<Void> removerPorId(@PathVariable int id) {
         produtoService.removerPorId(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}")

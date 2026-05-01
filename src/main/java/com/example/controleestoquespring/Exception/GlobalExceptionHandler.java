@@ -12,15 +12,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErroResponse> handleProduto(MethodArgumentNotValidException e) {
         String mensagem = e.getBindingResult()
                 .getFieldErrors()
-                .getFirst()
+                .stream().findFirst().orElseThrow()
                 .getDefaultMessage();
         ErroResponse erro = new ErroResponse(mensagem, 400);
         return ResponseEntity.badRequest().body(erro);
     }
 
     @ExceptionHandler(ProdutoException.class)
-    public ResponseEntity<ErroResponse> handleProduto(String mensagem) {
-        ErroResponse erroResponse = new ErroResponse(mensagem, 400);
+    public ResponseEntity<ErroResponse> handleProduto(ProdutoException e) {
+        ErroResponse erroResponse = new ErroResponse(e.getMessage(), 400);
         return ResponseEntity.badRequest().body(erroResponse);
     }
 }

@@ -2,15 +2,15 @@ package com.example.controleestoquespring.Exception;
 
 public class ErroResponse {
     private String mensagem;
-    private int erro;
+    private int status;
 
-    public ErroResponse(String mensagem, int erro) {
+    public ErroResponse(String mensagem, int status) {
         this.mensagem = mensagem;
-        this.erro = erro;
+        this.status = status;
     }
 
-    public int getErro() {
-        return erro;
+    public int getStatus() {
+        return status;
     }
 
     public String getMensagem() {
