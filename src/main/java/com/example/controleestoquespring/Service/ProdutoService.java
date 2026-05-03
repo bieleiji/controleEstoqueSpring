@@ -6,6 +6,9 @@ import com.example.controleestoquespring.Dto.ProdutoUpdateRequest;
 import com.example.controleestoquespring.Exception.ProdutoException;
 import com.example.controleestoquespring.Model.Produto;
 import com.example.controleestoquespring.Repository.ProdutoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -94,5 +97,22 @@ public class ProdutoService {
                 atualizado.getPreco(),
                 atualizado.getQuantidade()
         );
+    }
+
+    public Page<ProdutoResponse> listarProdutos(String nome, int numPage, int size) {
+        Pageable pageable = PageRequest.of(numPage, size);
+        Page<Produto> page;
+
+        if(nome == null || nome.isBlank()) {
+            page = produtoRepository.findAll(pageable);
+        } else {
+            page = produtoRepository.findByNomeContaining(nome, pageable);
+        }
+        return page.map(produto -> new ProdutoResponse(
+                produto.getId(),
+                produto.getNome(),
+                produto.getPreco(),
+                produto.getQuantidade()
+        ));
     }
 }
