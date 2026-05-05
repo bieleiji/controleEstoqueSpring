@@ -6,7 +6,7 @@ uma API REST e integração com banco de dados de forma automatizada.
 ## Funcionalidades
 -  CRUD completo
     * Criar produto
-    * mostrar produtos
+    * mostrar produtos (com paginação e filtro por nome)
     * atualizar produtos
     * deletar produtos
 
@@ -60,7 +60,7 @@ modelo:
 ## Endpoints
 
 - POST /produtos
-- GET /produtos
+- GET /produtos → ?nome="NOME"&page=QUAL_PAGINA&size=QUANTIDE_DADOS_PAGINA ← opcional
 - GET /produtos/{id}
 - PUT /produtos/{id}
 - DELETE /produtos/{id}
