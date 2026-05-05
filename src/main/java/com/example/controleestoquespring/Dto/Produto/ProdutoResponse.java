@@ -1,4 +1,4 @@
-package com.example.controleestoquespring.Dto;
+package com.example.controleestoquespring.Dto.Produto;
 
 public class ProdutoResponse {
     private int id;

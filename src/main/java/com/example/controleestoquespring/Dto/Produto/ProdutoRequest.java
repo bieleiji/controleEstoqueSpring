@@ -1,4 +1,4 @@
-package com.example.controleestoquespring.Dto;
+package com.example.controleestoquespring.Dto.Produto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;

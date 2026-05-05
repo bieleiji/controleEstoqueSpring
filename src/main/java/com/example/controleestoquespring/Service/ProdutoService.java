@@ -1,8 +1,8 @@
 package com.example.controleestoquespring.Service;
 
-import com.example.controleestoquespring.Dto.ProdutoRequest;
-import com.example.controleestoquespring.Dto.ProdutoResponse;
-import com.example.controleestoquespring.Dto.ProdutoUpdateRequest;
+import com.example.controleestoquespring.Dto.Produto.ProdutoRequest;
+import com.example.controleestoquespring.Dto.Produto.ProdutoResponse;
+import com.example.controleestoquespring.Dto.Produto.ProdutoUpdateRequest;
 import com.example.controleestoquespring.Exception.ProdutoException;
 import com.example.controleestoquespring.Model.Produto;
 import com.example.controleestoquespring.Repository.ProdutoRepository;
