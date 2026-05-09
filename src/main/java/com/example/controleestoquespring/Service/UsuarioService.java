@@ -13,6 +13,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private JwtService jwtService;
+
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public void registrar(UsuarioRequest usuarioRequest) {
@@ -38,6 +41,8 @@ public class UsuarioService {
             throw new RuntimeException("Senha inválida");
         }
 
-        return new UsuarioResponse("Login realizado com sucesso");
+        String token = jwtService.gerarToken(usuario.getNome());
+
+        return new UsuarioResponse(token);
     }
 }

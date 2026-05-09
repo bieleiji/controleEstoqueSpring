@@ -1,13 +1,13 @@
 package com.example.controleestoquespring.Dto.Usuario;
 
 public class UsuarioResponse {
-    private String mensagem;
+    private String token;
 
-    public UsuarioResponse(String mensagem) {
-        this.mensagem = mensagem;
+    public UsuarioResponse(String token) {
+        this.token = token;
     }
 
-    public String getMensagem() {
-        return mensagem;
+    public String getToken() {
+        return token;
     }
 }
